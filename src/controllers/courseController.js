@@ -16,13 +16,13 @@ async function createCourse(req, res) {
       return res.status(500).json({ error: 'MongoDB connection not established' });
     }
 
-    const { title, description } = req.body;
+    const { title, description, price } = req.body;
     if (!title || !description) {
-      return res.status(400).json({ error: 'Title and description are required' });
+      return res.status(400).json({ error: 'Title, description and price are required' });
     }
 
-    console.log('Inserting course with title:', title, 'and description:', description);
-    const result = await db.collection('courses').insertOne({ title, description });
+    console.log('Inserting course with title:', title, 'and description:', description, 'and price:', description);
+    const result = await db.collection('courses').insertOne({ title, description, price });
     console.log('Course inserted:', result);
 
     const insertedCourse = await db.collection('courses').findOne({ _id: result.insertedId });
